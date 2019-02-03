@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>What's in your kitchen?</title>
+</head>
+<body>
+	<header>
+		<div class="wrapper">
+			<div class="logo">
+				<h1>What's in your kitchen?</h1>
+			</div>
+			<div class="forms">
+				<form action="" id="form-search-main">
+					<label for="search"></label>
+					<input id="search" type="search" placeholder="I have..." name="ingredient">
+					<input id="submit" type="submit" value="ADD" name="submit" required="">
+				</form>
+				<form action="" id="form-search-exclude">
+					<label for="search"></label>
+					<input id="search" type="search" placeholder="I don't want...">
+					<input id="submit" type="submit" value="DON'T INCLUDE" name="submit">
+				</form>
+				<h3>Allergies</h3>
+				<p>Click any allergies you have</p>
+				<form action="" id="form-search-allergies">
+					<label for="tree">Tree Nut</label>
+					<input id="tree" type="checkbox" name="allergy" value="395^Tree Nut-Free">
+					<label for="dairy">Dairy</label>
+					<input id="dairy" type="checkbox" name="allergy" value="396^Dairy-Free">
+					<label for="egg">Egg</label>
+					<input id="egg" type="checkbox" name="allergy" value="397^Egg-Free">
+					<label for="gluten">Gluten</label>
+					<input id="gluten" type="checkbox" name="allergy" value="393^Gluten-Free">
+					<label for="penut">Penut</label>
+					<input id="penut" type="checkbox" name="allergy" value="394^Peanut-Free">
+					<label for="seafood">Seafood</label>
+					<input id="seafood" type="checkbox" name="allergy" value="398^Seafood-Free">
+					<label for="sesame">Sesame</label>
+					<input id="sesame" type="checkbox" name="allergy" value="399^Sesame-Free">
+					<label for="soy">Soy</label>
+					<input id="soy" type="checkbox" name="allergy" value="400^Soy-Free">
+					<label for="sulfite">Sulfite</label>
+					<input id="sulfite" type="checkbox" name="allergy" value="401^Sulfite-Free">
+					<label for="wheat">Wheat</label>
+					<input id="wheat" type="checkbox" name="allergy" value="392^Wheat-Free">
+				</form>
+				<h3>Diets</h3>
+				<p>Click any dietary restrictions</p>
+				<form action="" id="form-search-diet">
+					<label for="keto">Ketogenic</label>
+					<input id="keto" type="checkbox" name="diet" value="406^Ketogenic">
+					<label for="lacto">Lacto vegetarian</label>
+					<input id="lacto" type="checkbox" name="diet" value="388^Lacto vegetarian">
+					<label for="ovo">Ovo vegetarian</label>
+					<input id="ovo" type="checkbox" name="diet" value="389^Ovo vegetarian">
+					<label for="pescetarian">Pescetarian</label>
+					<input id="pescetarian" type="checkbox" name="diet" value="390^Pescetarian">
+					<label for="vegan">Vegan</label>
+					<input id="vegan" type="checkbox" name="diet" value="386^Vegan">
+					<label for="fodmap">Low FODMAP</label>
+					<input id="fodmap" type="checkbox" name="diet" value="408^Low FODMAP">
+					<label for="lacto-ovo">Lacto-ovo vegetarian</label>
+					<input id="lacto-ovo" type="checkbox" name="diet" value="387^Lacto-ovo vegetarian">
+					<label for="paleo">Paleo</label>
+					<input id="paleo" type="checkbox" name="diet" value="403^Paleo">
+				</form>
+			</div>
+		</div>
+	</header>
+	<section id="recipes">
+
+	</section>
+	<footer>
+		ⓒ Made by Clint Lee 2019
+	</footer>
+
+
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	<script src="public/scripts/main.js"></script>
+</body>
+</html>
