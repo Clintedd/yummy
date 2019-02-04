@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>What's in your kitchen?</title>
+	<link rel="stylesheet" href="public/styles/style.css">
 </head>
 <body>
 	<header>
@@ -12,65 +13,79 @@
 			<div class="logo">
 				<h1>What's in your kitchen?</h1>
 			</div>
-			<div class="forms">
+			<div class="form">
 				<form action="" id="form-search-main">
 					<label for="search"></label>
 					<input id="search" type="search" placeholder="I have..." name="ingredient">
-					<input id="submit" type="submit" value="ADD" name="submit" required="">
-				</form>
-				<form action="" id="form-search-exclude">
-					<label for="search"></label>
-					<input id="search" type="search" placeholder="I don't want...">
-					<input id="submit" type="submit" value="DON'T INCLUDE" name="submit">
-				</form>
-				<h3>Allergies</h3>
-				<p>Click any allergies you have</p>
-				<form action="" id="form-search-allergies">
-					<label for="tree">Tree Nut</label>
-					<input id="tree" type="checkbox" name="allergy" value="395^Tree Nut-Free">
-					<label for="dairy">Dairy</label>
-					<input id="dairy" type="checkbox" name="allergy" value="396^Dairy-Free">
-					<label for="egg">Egg</label>
-					<input id="egg" type="checkbox" name="allergy" value="397^Egg-Free">
-					<label for="gluten">Gluten</label>
-					<input id="gluten" type="checkbox" name="allergy" value="393^Gluten-Free">
-					<label for="penut">Penut</label>
-					<input id="penut" type="checkbox" name="allergy" value="394^Peanut-Free">
-					<label for="seafood">Seafood</label>
-					<input id="seafood" type="checkbox" name="allergy" value="398^Seafood-Free">
-					<label for="sesame">Sesame</label>
-					<input id="sesame" type="checkbox" name="allergy" value="399^Sesame-Free">
-					<label for="soy">Soy</label>
-					<input id="soy" type="checkbox" name="allergy" value="400^Soy-Free">
-					<label for="sulfite">Sulfite</label>
-					<input id="sulfite" type="checkbox" name="allergy" value="401^Sulfite-Free">
-					<label for="wheat">Wheat</label>
-					<input id="wheat" type="checkbox" name="allergy" value="392^Wheat-Free">
-				</form>
-				<h3>Diets</h3>
-				<p>Click any dietary restrictions</p>
-				<form action="" id="form-search-diet">
-					<label for="keto">Ketogenic</label>
-					<input id="keto" type="checkbox" name="diet" value="406^Ketogenic">
-					<label for="lacto">Lacto vegetarian</label>
-					<input id="lacto" type="checkbox" name="diet" value="388^Lacto vegetarian">
-					<label for="ovo">Ovo vegetarian</label>
-					<input id="ovo" type="checkbox" name="diet" value="389^Ovo vegetarian">
-					<label for="pescetarian">Pescetarian</label>
-					<input id="pescetarian" type="checkbox" name="diet" value="390^Pescetarian">
-					<label for="vegan">Vegan</label>
-					<input id="vegan" type="checkbox" name="diet" value="386^Vegan">
-					<label for="fodmap">Low FODMAP</label>
-					<input id="fodmap" type="checkbox" name="diet" value="408^Low FODMAP">
-					<label for="lacto-ovo">Lacto-ovo vegetarian</label>
-					<input id="lacto-ovo" type="checkbox" name="diet" value="387^Lacto-ovo vegetarian">
-					<label for="paleo">Paleo</label>
-					<input id="paleo" type="checkbox" name="diet" value="403^Paleo">
+					<ul>
+						
+					</ul>
+					<h3>Allergies</h3>
+					<p>Click any allergies you have</p>
+					<div class="allergies">
+						<label for="tree">Tree Nut</label>
+						<input id="tree" type="checkbox" name="allergy" value="395^Tree Nut-Free">
+						<label for="dairy">Dairy</label>
+						<input id="dairy" type="checkbox" name="allergy" value="396^Dairy-Free">
+						<label for="egg">Egg</label>
+						<input id="egg" type="checkbox" name="allergy" value="397^Egg-Free">
+						<label for="gluten">Gluten</label>
+						<input id="gluten" type="checkbox" name="allergy" value="393^Gluten-Free">
+						<label for="penut">Penut</label>
+						<input id="penut" type="checkbox" name="allergy" value="394^Peanut-Free">
+						<label for="seafood">Seafood</label>
+						<input id="seafood" type="checkbox" name="allergy" value="398^Seafood-Free">
+						<label for="sesame">Sesame</label>
+						<input id="sesame" type="checkbox" name="allergy" value="399^Sesame-Free">
+						<label for="soy">Soy</label>
+						<input id="soy" type="checkbox" name="allergy" value="400^Soy-Free">
+						<label for="sulfite">Sulfite</label>
+						<input id="sulfite" type="checkbox" name="allergy" value="401^Sulfite-Free">
+						<label for="wheat">Wheat</label>
+						<input id="wheat" type="checkbox" name="allergy" value="392^Wheat-Free">
+					</div>
+					<h3>Diets</h3>
+					<p>Click any dietary restrictions</p>
+					<div class="diets">
+						<input id="keto" type="radio" name="diet" value="406^Ketogenic">
+						<label for="keto">Ketogenic</label>
+						<input id="lacto" type="radio" name="diet" value="388^Lacto vegetarian">
+						<label for="lacto">Lacto vegetarian</label>
+						<input id="ovo" type="radio" name="diet" value="389^Ovo vegetarian">
+						<label for="ovo">Ovo vegetarian</label>
+						<input id="pescetarian" type="radio" name="diet" value="390^Pescetarian">
+						<label for="pescetarian">Pescetarian</label>
+						<input id="vegan" type="radio" name="diet" value="386^Vegan">
+						<label for="vegan">Vegan</label>
+						<input id="fodmap" type="radio" name="diet" value="408^Low FODMAP">
+						<label for="fodmap">Low FODMAP</label>
+						<input id="lacto-ovo" type="radio" name="diet" value="387^Lacto-ovo vegetarian">
+						<label for="lacto-ovo">Lacto-ovo vegetarian</label>
+						<input id="paleo" type="radio" name="diet" value="403^Paleo">
+						<label for="paleo">Paleo</label>
+					</div>
+					<h3>Duration</h3>
+					<p>Click the duration you want</p>
+					<div class="duration">
+						<input id="15min" type="radio" name="duartion" value="900">
+						<label for="15min">15 minutes</label>
+						<input id="30min" type="radio" name="duartion" value="1800">
+						<label for="30min">30 minutes</label>
+						<input id="45min" type="radio" name="duartion" value="2700">
+						<label for="45min">45 minutes</label>
+						<input id="1hr" type="radio" name="duartion" value="3600">
+						<label for="1hr">1 hour</label>
+						<input id="1hr30min" type="radio" name="duartion" value="5400">
+						<label for="1hr30min">1 hour 30 minutes</label>
+						<input id="2hr" type="radio" name="duartion" value="7200">
+						<label for="2hr">2 hours</label>
+					</div>
+					<input id="search" type="submit" value="ADD" name="submitForMain" required="">
 				</form>
 			</div>
 		</div>
 	</header>
-	<section id="recipes">
+	<section id="recipes" class="recipes">
 
 	</section>
 	<footer>

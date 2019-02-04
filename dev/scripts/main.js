@@ -1,28 +1,46 @@
 const app = {};
+const searchedAll = [];
+let dietSelected = 'none';
+let maxTimeSelected = 'none';
 
-let main = [];
-
-app.mainSearchEvent = function () {
+// On form submit, call the getMainInfo function
+app.mainSearchEvent = function() {
     $('#form-search-main').on('submit', function(e) {
         e.preventDefault();
         app.getMainInfo();
     })
-    
 }
 
-const searchedAll = [];
+// When the function is called, use the value of searched input, checked allergies, checked diets, checked time to get recipe info from Yummly API
 app.getMainInfo = function () {
-    const searchedWord = $('#form-search-main').children('input[type=search]').val();
-    if (searchedWord) {
+    const searchedIngredient = $('#form-search-main').children('input[type=search]').val();
+    if (searchedIngredient) {
         const oneSearch = $('input[name=ingredient]').val();
+        $('ul').append(`<li>${oneSearch}</li>`);
         searchedAll.push(oneSearch);
-        console.log(searchedAll);
     }
-    
-    app.getRecip(searchedAll);
+
+    const allergiesAll = [];
+    const checkedAllergies = $('.allergies input[type=checkbox]').filter($('input:checked'));
+    allergiesAll.push(...checkedAllergies);
+    const allergySelected = [];
+    for (var i = 0; i < allergiesAll.length; i++) {
+        allergySelected.push(allergiesAll[i].value);
+    }
+
+
+    dietSelected = $('.diets input[type=radio]').filter($('input:checked')).val();
+    console.log(dietSelected);
+
+    maxTimeSelected = $('.duration input[type=radio]').filter($('input:checked')).val();
+    console.log(maxTimeSelected);
+
+
+    app.getRecip(searchedAll, allergySelected, dietSelected, maxTimeSelected);
 }
 
-app.getRecip = function (searchedAll, ingredientExcluded, allergySelected, dietSelected) {
+// Get data from Yummly API with all the info inputed
+app.getRecip = function (searchedAll, allergySelected, dietSelected, maxTimeSelected) {
     $.ajax({
         url: 'http://api.yummly.com/v1/api/recipes',
         dataType: 'json',
@@ -31,43 +49,40 @@ app.getRecip = function (searchedAll, ingredientExcluded, allergySelected, dietS
             _app_key: 'ff279905f6336ced45e39d38f120592e',
             maxResult: 12,
             q: searchedAll,
-            excludedIngredient: ingredientExcluded,
             allowedAllergy: allergySelected,
+            maxTotalTimeInSeconds: maxTimeSelected,
             allowedDiet: dietSelected
         }
     }).then((res) => {
         console.log(res);
-        // const ajaxResult = res;
-        // app.showResult(ajaxResult);
+        const ajaxResult = res;
+        app.showResult(ajaxResult);
     })
 }
 
-// app.getRecipes = function (searchTerm, selectedAllergy, selectedDiet) {
-//     $.ajax({
-//       url: 'http://api.yummly.com/v1/api/recipes',
-//       dataType: 'json',
-//       data: {
-//         _app_id: '0a0c3a8c',
-//         _app_key: '3d2d8d9336ff2dd0a5bbd759f25b8a3c',
-//         maxResult: 12,
-//         q: searchTerm,
-//         allowedAllergy: selectedAllergy,
-//         allowedDiet: selectedDiet
-//       }
-//     }).then((res) => {
-//       const apiResults = res;
-//       app.displayRecipes(apiResults);
-  
-  
-//     });
-//   }
+// Display the data recieved and attach each recipes to the recipes section
+app.showResult = function(ajaxResult) {
+    const arrayOfRecip = ajaxResult.matches;
+    console.log(arrayOfRecip);
+    arrayOfRecip.forEach(function (item){
+        const recipTitle = $('<h3 class="recipe-title">').text(item.recipeName);
+        const recipUniqueTitle = $(`<h4 class="recipe-unique">`).text(item.sourceDisplayName);
+
+        const imageUrl = item.imageUrlsBySize['90'].split('=')[0];
+        const recipImage = $(`<img class="recipe-img">`).attr('src', imageUrl);
+
+        
+        const eachRecip = $(`<div>`).addClass('recipe-item').append(recipTitle, recipUniqueTitle, recipImage);
+
+        $('#recipes').append(eachRecip);
+    })
+}
 
 
 
-
+// init function
 app.init = function () {
     app.mainSearchEvent();
-    
 }
 
 
