@@ -8,6 +8,8 @@ app.mainSearchEvent = function() {
     $('#form-search-main').on('submit', function(e) {
         e.preventDefault();
         app.getMainInfo();
+        app.searchedTitle(searchedAll);
+        this.reset();
     })
 }
 
@@ -30,13 +32,19 @@ app.getMainInfo = function () {
 
 
     dietSelected = $('.diets input[type=radio]').filter($('input:checked')).val();
-    console.log(dietSelected);
+    // console.log(dietSelected);
 
     maxTimeSelected = $('.duration input[type=radio]').filter($('input:checked')).val();
-    console.log(maxTimeSelected);
+    // console.log(maxTimeSelected);
 
 
     app.getRecip(searchedAll, allergySelected, dietSelected, maxTimeSelected);
+}
+
+app.searchedTitle = function(searchedAll) {
+    // console.log(searchedAll);
+    $('#recipes').empty();
+
 }
 
 // Get data from Yummly API with all the info inputed
@@ -65,16 +73,64 @@ app.showResult = function(ajaxResult) {
     const arrayOfRecip = ajaxResult.matches;
     console.log(arrayOfRecip);
     arrayOfRecip.forEach(function (item){
-        const recipTitle = $('<h3 class="recipe-title">').text(item.recipeName);
-        const recipUniqueTitle = $(`<h4 class="recipe-unique">`).text(item.sourceDisplayName);
+        const recipTitle = $('<h4 class="recipe-title">').text(item.recipeName);
+        const recipUniqueTitle = $(`<h6 class="recipe-unique">`).text(item.sourceDisplayName);
 
         const imageUrl = item.imageUrlsBySize['90'].split('=')[0];
         const recipImage = $(`<img class="recipe-img">`).attr('src', imageUrl);
 
+        const ingredientsTitle = $('<p class="ingredients-title">').text('Ingredients');
+
+        const ingredients = $('<ul class="ingredients-all">')
+        const ingredient = item.ingredients.forEach(function(ingredient) {
+            const eachLi = $('<li class="ingredients-each">').text(ingredient);
+            ingredients.append(eachLi);
+        })
+
+        const duration = (item.totalTimeInSeconds / 60);
+        const durationInMin = $('<h6 class="duration-each">').text(`Time: ${duration} minutes`);
+
         
-        const eachRecip = $(`<div>`).addClass('recipe-item').append(recipTitle, recipUniqueTitle, recipImage);
+        const eachRecip = $(`<div>`).addClass('recipe-item').append(recipTitle, recipUniqueTitle, recipImage, durationInMin, ingredientsTitle, ingredients);
 
         $('#recipes').append(eachRecip);
+    })
+}
+
+app.checkboxToggle = function() {
+    $('.allergies label').click(function() {
+        $(this).toggleClass('active');
+    })
+}
+
+app.dietsToggle = function(dietSelected) {
+    $('.diets input[type=radio]').change(function () {
+        $('.diets label').removeClass('active');    
+        if (this.checked) {
+            $(this).next().toggleClass('active');
+            dietSelected = $(this).val()
+            if (searchedAll.length === 0 && allergySelected.length === 0 && dietSelected === "none" && maxTimeSelected === "none") {
+                $('#recipes').hide()
+            }
+        }
+        
+
+        app.getRecip(searchedAll, allergySelected, dietSelected, maxTimeSelected)
+    })
+}
+
+app.durationToggle = function(maxTimeSelected) {
+    $('.duration input[type=radio]').change(function () {
+        $('.duration label').removeClass('active');    
+        if (this.checked) {
+            $(this).next().toggleClass('active');
+            maxTimeSelected = $(this).val()
+            if (searchedAll.length === 0 && allergySelected.length === 0 && dietSelected === "none" && maxTimeSelected === "none") {
+                $('#recipes').hide()
+            }
+        }
+
+        app.getRecip(searchedAll, allergySelected, dietSelected, maxTimeSelected)
     })
 }
 
@@ -83,6 +139,9 @@ app.showResult = function(ajaxResult) {
 // init function
 app.init = function () {
     app.mainSearchEvent();
+    app.checkboxToggle();
+    app.dietsToggle();
+    app.durationToggle();
 }
 
 

@@ -5,23 +5,22 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>What's in your kitchen?</title>
+	<link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"> 
 	<link rel="stylesheet" href="public/styles/style.css">
 </head>
 <body>
 	<header>
 		<div class="wrapper">
 			<div class="logo">
-				<h1>What's in your kitchen?</h1>
+				<img src="assets/title.png" alt="">
 			</div>
 			<div class="form">
 				<form action="" id="form-search-main">
 					<label for="search"></label>
-					<input id="search" type="search" placeholder="I have..." name="ingredient">
-					<ul>
-						
-					</ul>
-					<h3>Allergies</h3>
-					<p>Click any allergies you have</p>
+					<input id="search" type="search" placeholder="I have..." name="ingredient" onfocus="this.placeholder = ''" onblur="this.placeholder = `I have...`" required>
+					<div class="allergies-title">
+						<img src="assets/allergies.png" alt="">
+					</div>
 					<div class="allergies">
 						<label for="tree">Tree Nut</label>
 						<input id="tree" type="checkbox" name="allergy" value="395^Tree Nut-Free">
@@ -44,8 +43,9 @@
 						<label for="wheat">Wheat</label>
 						<input id="wheat" type="checkbox" name="allergy" value="392^Wheat-Free">
 					</div>
-					<h3>Diets</h3>
-					<p>Click any dietary restrictions</p>
+					<div class="diets-title">
+						<img src="assets/diets.png" alt="">
+					</div>
 					<div class="diets">
 						<input id="keto" type="radio" name="diet" value="406^Ketogenic">
 						<label for="keto">Ketogenic</label>
@@ -63,9 +63,12 @@
 						<label for="lacto-ovo">Lacto-ovo vegetarian</label>
 						<input id="paleo" type="radio" name="diet" value="403^Paleo">
 						<label for="paleo">Paleo</label>
+						<input id="none" type="radio" name="diet" value="none">
+						<label for="none">None</label>
 					</div>
-					<h3>Duration</h3>
-					<p>Click the duration you want</p>
+					<div class="duration-title">
+						<img src="assets/duration.png" alt="">
+					</div>
 					<div class="duration">
 						<input id="15min" type="radio" name="duartion" value="900">
 						<label for="15min">15 minutes</label>
@@ -79,15 +82,23 @@
 						<label for="1hr30min">1 hour 30 minutes</label>
 						<input id="2hr" type="radio" name="duartion" value="7200">
 						<label for="2hr">2 hours</label>
+						<input id="all" type="radio" name="duartion" value="none">
+						<label for="all">All</label>
 					</div>
-					<input id="search" type="submit" value="ADD" name="submitForMain" required="">
+					<input id="search" type="submit" value="Let's Start Cooking!" name="submitForMain" required="">
 				</form>
 			</div>
 		</div>
 	</header>
-	<section id="recipes" class="recipes">
-
-	</section>
+	<div class="recipe">	
+		<div class="wrapper">
+			<ul>
+			</ul>
+			<section id="recipes" class="recipes">
+				
+			</section>
+		</div>
+	</div>
 	<footer>
 		ⓒ Made by Clint Lee 2019
 	</footer>
