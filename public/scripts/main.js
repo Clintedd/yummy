@@ -6,6 +6,7 @@ var app = {};
 var searchedAll = [];
 var dietSelected = 'none';
 var maxTimeSelected = 'none';
+var ingredientsTitle =
 
 // On form submit, call the getMainInfo function
 app.mainSearchEvent = function () {
@@ -13,8 +14,17 @@ app.mainSearchEvent = function () {
         e.preventDefault();
         app.getMainInfo();
         app.searchedTitle(searchedAll);
+        $('header').css('height', '100vh');
+        $('.searched-ingredient').css('display', 'flex');
+        app.scrollToTop();
         this.reset();
     });
+};
+
+app.scrollToTop = function () {
+    $('html,body').animate({
+        scrollTop: $(".recipe").offset().top
+    }, 1000);
 };
 
 // When the function is called, use the value of searched input, checked allergies, checked diets, checked time to get recipe info from Yummly API
@@ -22,7 +32,7 @@ app.getMainInfo = function () {
     var searchedIngredient = $('#form-search-main').children('input[type=search]').val();
     if (searchedIngredient) {
         var oneSearch = $('input[name=ingredient]').val();
-        $('ul').append('<li>' + oneSearch + '</li>');
+        $('.searched-ingredient').append('<li>' + oneSearch + '</li>');
         searchedAll.push(oneSearch);
     }
 
@@ -70,29 +80,39 @@ app.getRecip = function (searchedAll, allergySelected, dietSelected, maxTimeSele
     });
 };
 
+var eachRecip = void 0;
+
 // Display the data recieved and attach each recipes to the recipes section
 app.showResult = function (ajaxResult) {
     var arrayOfRecip = ajaxResult.matches;
     console.log(arrayOfRecip);
+
     arrayOfRecip.forEach(function (item) {
         var recipTitle = $('<h4 class="recipe-title">').text(item.recipeName);
         var recipUniqueTitle = $('<h6 class="recipe-unique">').text(item.sourceDisplayName);
 
         var imageUrl = item.imageUrlsBySize['90'].split('=')[0];
         var recipImage = $('<img class="recipe-img">').attr('src', imageUrl);
+        var recipAnchor = $('<a href="https://www.yummly.com/recipe/' + item.id + '" target="_blank"></a>').append(recipImage);
 
-        var ingredientsTitle = $('<p class="ingredients-title">').text('Ingredients');
+        var ingredientsTitle = $('<a href="https://www.yummly.com/recipe/' + item.id + '" class="ingredients-title" target="_blank">').text('Ingredients');
 
-        var ingredients = $('<ul class="ingredients-all">');
-        var ingredient = item.ingredients.forEach(function (ingredient) {
-            var eachLi = $('<li class="ingredients-each">').text(ingredient);
-            ingredients.append(eachLi);
-        });
+        // const ingredients = $('<ul class="ingredients-all">')
+        // const ingredient = item.ingredients.forEach(function(ingredient) {
+        //     const eachLi = $('<li class="ingredients-each">').text(ingredient);
+        //     ingredients.append(eachLi);
+        // })
 
         var duration = item.totalTimeInSeconds / 60;
         var durationInMin = $('<h6 class="duration-each">').text('Time: ' + duration + ' minutes');
 
-        var eachRecip = $('<div>').addClass('recipe-item').append(recipTitle, recipUniqueTitle, recipImage, durationInMin, ingredientsTitle, ingredients);
+        // $('.ingredients-title').on('click', function() {
+        //     const indexOf = $('.ingredients-title').index(this);
+        //     const ingredientsAll = arrayOfRecip[indexOf].ingredients;
+        //     console.log(ingredientsAll);
+        // })
+
+        var eachRecip = $('<div>').addClass('recipe-item').append(recipTitle, recipUniqueTitle, recipAnchor, durationInMin, ingredientsTitle);
 
         $('#recipes').append(eachRecip);
     });
@@ -134,12 +154,27 @@ app.durationToggle = function (maxTimeSelected) {
     });
 };
 
+app.widthHandler = function () {
+    $(window).resize(function () {
+        if ($(window).width() < 350) {
+            console.log($(window).width());
+            app.smallWidth();
+        }
+    });
+};
+
+app.smallWidth = function () {
+    $('header').css('height', 'auto');
+    $('footer').css('height', 'auto');
+};
+
 // init function
 app.init = function () {
     app.mainSearchEvent();
     app.checkboxToggle();
     app.dietsToggle();
     app.durationToggle();
+    app.widthHandler();
 };
 
 $(function () {

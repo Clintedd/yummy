@@ -2,6 +2,7 @@ const app = {};
 const searchedAll = [];
 let dietSelected = 'none';
 let maxTimeSelected = 'none';
+const ingredientsTitle = 
 
 // On form submit, call the getMainInfo function
 app.mainSearchEvent = function() {
@@ -9,8 +10,18 @@ app.mainSearchEvent = function() {
         e.preventDefault();
         app.getMainInfo();
         app.searchedTitle(searchedAll);
+        $('header').css('height', '100vh');
+        $('.searched-ingredient').css('display', 'flex');
+        app.scrollToTop();
         this.reset();
     })
+}
+
+app.scrollToTop = function () {
+    $('html,body').animate({
+        scrollTop: $(".recipe").offset().top
+    },
+        1000);
 }
 
 // When the function is called, use the value of searched input, checked allergies, checked diets, checked time to get recipe info from Yummly API
@@ -18,7 +29,7 @@ app.getMainInfo = function () {
     const searchedIngredient = $('#form-search-main').children('input[type=search]').val();
     if (searchedIngredient) {
         const oneSearch = $('input[name=ingredient]').val();
-        $('ul').append(`<li>${oneSearch}</li>`);
+        $('.searched-ingredient').append(`<li>${oneSearch}</li>`);
         searchedAll.push(oneSearch);
     }
 
@@ -68,30 +79,42 @@ app.getRecip = function (searchedAll, allergySelected, dietSelected, maxTimeSele
     })
 }
 
+let eachRecip;
+
 // Display the data recieved and attach each recipes to the recipes section
 app.showResult = function(ajaxResult) {
     const arrayOfRecip = ajaxResult.matches;
     console.log(arrayOfRecip);
+
     arrayOfRecip.forEach(function (item){
         const recipTitle = $('<h4 class="recipe-title">').text(item.recipeName);
-        const recipUniqueTitle = $(`<h6 class="recipe-unique">`).text(item.sourceDisplayName);
+        const recipUniqueTitle = $('<h6 class="recipe-unique">').text(item.sourceDisplayName);
 
         const imageUrl = item.imageUrlsBySize['90'].split('=')[0];
-        const recipImage = $(`<img class="recipe-img">`).attr('src', imageUrl);
+        const recipImage = $('<img class="recipe-img">').attr('src', imageUrl);
+        const recipAnchor = $(`<a href="https://www.yummly.com/recipe/${item.id}" target="_blank"></a>`).append(recipImage);
+        
+        const ingredientsTitle = $(`<a href="https://www.yummly.com/recipe/${item.id}" class="ingredients-title" target="_blank">`).text('Ingredients');
 
-        const ingredientsTitle = $('<p class="ingredients-title">').text('Ingredients');
-
-        const ingredients = $('<ul class="ingredients-all">')
-        const ingredient = item.ingredients.forEach(function(ingredient) {
-            const eachLi = $('<li class="ingredients-each">').text(ingredient);
-            ingredients.append(eachLi);
-        })
+        // const ingredients = $('<ul class="ingredients-all">')
+        // const ingredient = item.ingredients.forEach(function(ingredient) {
+        //     const eachLi = $('<li class="ingredients-each">').text(ingredient);
+        //     ingredients.append(eachLi);
+        // })
 
         const duration = (item.totalTimeInSeconds / 60);
         const durationInMin = $('<h6 class="duration-each">').text(`Time: ${duration} minutes`);
-
         
-        const eachRecip = $(`<div>`).addClass('recipe-item').append(recipTitle, recipUniqueTitle, recipImage, durationInMin, ingredientsTitle, ingredients);
+
+
+        // $('.ingredients-title').on('click', function() {
+        //     const indexOf = $('.ingredients-title').index(this);
+        //     const ingredientsAll = arrayOfRecip[indexOf].ingredients;
+        //     console.log(ingredientsAll);
+        // })
+
+        const eachRecip = $(`<div>`).addClass('recipe-item').append(recipTitle, recipUniqueTitle, recipAnchor, durationInMin, ingredientsTitle);
+
 
         $('#recipes').append(eachRecip);
     })
@@ -134,7 +157,19 @@ app.durationToggle = function(maxTimeSelected) {
     })
 }
 
+app.widthHandler = function () {
+    $(window).resize(function() {
+        if ($(window).width() < 350) {
+            console.log($(window).width());
+            app.smallWidth();
+        } 
+    });
+}
 
+app.smallWidth = function () {
+    $('header').css('height', 'auto');
+    $('footer').css('height', 'auto');
+}
 
 // init function
 app.init = function () {
@@ -142,6 +177,7 @@ app.init = function () {
     app.checkboxToggle();
     app.dietsToggle();
     app.durationToggle();
+    app.widthHandler();
 }
 
 

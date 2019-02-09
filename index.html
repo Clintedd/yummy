@@ -78,10 +78,6 @@
 						<label for="45min">45 minutes</label>
 						<input id="1hr" type="radio" name="duartion" value="3600">
 						<label for="1hr">1 hour</label>
-						<input id="1hr30min" type="radio" name="duartion" value="5400">
-						<label for="1hr30min">1 hour 30 minutes</label>
-						<input id="2hr" type="radio" name="duartion" value="7200">
-						<label for="2hr">2 hours</label>
 						<input id="all" type="radio" name="duartion" value="none">
 						<label for="all">All</label>
 					</div>
@@ -92,7 +88,8 @@
 	</header>
 	<div class="recipe">	
 		<div class="wrapper">
-			<ul>
+			<ul id="searched" class="searched-ingredient">
+				Searched Ingredients:
 			</ul>
 			<section id="recipes" class="recipes">
 				
@@ -100,7 +97,14 @@
 		</div>
 	</div>
 	<footer>
-		ⓒ Made by Clint Lee 2019
+		<div class="wrapper">
+			<p>
+				ⓒ Clint Lee 2019
+			</p>
+			<p>
+				Yummly API
+			</p>
+		</div>
 	</footer>
 
 
