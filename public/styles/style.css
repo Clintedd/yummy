@@ -157,7 +157,7 @@ li {
   list-style: none; }
 
 .wrapper {
-  width: 95%;
+  width: 80%;
   margin: 0 auto; }
 
 input[type=checkbox],
@@ -223,7 +223,8 @@ label[for=search] {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   width: 80%;
-  color: white; }
+  color: white;
+  margin: 0 auto; }
   @media (max-width: 900px) {
     .allergies, .diets, .duration {
       width: 100%; } }
