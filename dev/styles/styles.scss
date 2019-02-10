@@ -16,7 +16,7 @@ li {
 }
 
 .wrapper {
-    width: 95%;
+    width: 80%;
     margin: 0 auto;
 
     // @media (max-width: 900px) {
@@ -68,7 +68,6 @@ header {
     height: 96vh;
     background-image: url(../../assets/background.jpg);
     background-size: cover;
-    // display: flex;
     justify-content: center;
     padding: 1rem;
 
@@ -106,6 +105,7 @@ label[for=search] {
     flex-wrap: wrap;
     width: 80%;
     color: white;
+    margin: 0 auto;
 
     @media (max-width: 900px) {
         width: 100%;
