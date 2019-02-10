@@ -150,9 +150,6 @@ html {
 img {
   max-width: 100%; }
 
-ul {
-  padding: 0; }
-
 li {
   list-style: none; }
 
@@ -183,6 +180,9 @@ input[type=submit] {
   padding: 5px 10px;
   color: #DF3539; }
 
+.height {
+  height: auto; }
+
 .logo {
   margin: 1rem 0; }
   .logo img {
@@ -200,6 +200,11 @@ header {
   @media (max-width: 350px) {
     header {
       height: auto; } }
+
+.default {
+  background-color: #EDE3D7;
+  border: 3px solid #82B2E0;
+  color: black; }
 
 .active {
   background-color: #FEC2AB;
@@ -237,12 +242,16 @@ label[for=search] {
       -ms-flex-pack: start;
           justify-content: start;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap; }
+      flex-wrap: wrap;
+  padding: 30px;
+  margin: 0; }
 
-.searched-ingredient > * {
+.searched-each {
+  cursor: pointer;
   margin: 0 10px; }
 
 .recipe {
+  background: grey;
   padding: 0;
   margin: 0; }
 
@@ -336,7 +345,7 @@ label[for=search] {
   font-size: 0.5em; }
 
 footer {
-  background-color: black;
+  background-color: #26120C;
   height: 4vh; }
 
 footer .wrapper {

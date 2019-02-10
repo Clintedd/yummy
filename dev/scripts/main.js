@@ -1,5 +1,6 @@
 const app = {};
-const searchedAll = [];
+let searchedAll = [];
+const allergySelected = [];
 let dietSelected = 'none';
 let maxTimeSelected = 'none';
 const ingredientsTitle = 
@@ -10,9 +11,17 @@ app.mainSearchEvent = function() {
         e.preventDefault();
         app.getMainInfo();
         app.searchedTitle(searchedAll);
-        $('header').css('height', '100vh');
         $('.searched-ingredient').css('display', 'flex');
         app.scrollToTop();
+        $('header').css('height', '100vh');
+        $(window).resize(function() {
+            if ($(window).width() < 350) {
+                $('header').css('height', 'auto');  
+            } 
+            else {
+                $('header').css('height', '100vh');
+            }
+        });
         this.reset();
     })
 }
@@ -29,14 +38,13 @@ app.getMainInfo = function () {
     const searchedIngredient = $('#form-search-main').children('input[type=search]').val();
     if (searchedIngredient) {
         const oneSearch = $('input[name=ingredient]').val();
-        $('.searched-ingredient').append(`<li>${oneSearch}</li>`);
+        $('.searched-ingredient').append(`<li class="searched-each">${oneSearch}</li>`);
         searchedAll.push(oneSearch);
     }
 
     const allergiesAll = [];
     const checkedAllergies = $('.allergies input[type=checkbox]').filter($('input:checked'));
     allergiesAll.push(...checkedAllergies);
-    const allergySelected = [];
     for (var i = 0; i < allergiesAll.length; i++) {
         allergySelected.push(allergiesAll[i].value);
     }
@@ -73,7 +81,7 @@ app.getRecip = function (searchedAll, allergySelected, dietSelected, maxTimeSele
             allowedDiet: dietSelected
         }
     }).then((res) => {
-        console.log(res);
+        // console.log(res);
         const ajaxResult = res;
         app.showResult(ajaxResult);
     })
@@ -84,17 +92,23 @@ let eachRecip;
 // Display the data recieved and attach each recipes to the recipes section
 app.showResult = function(ajaxResult) {
     const arrayOfRecip = ajaxResult.matches;
-    console.log(arrayOfRecip);
+    // console.log(arrayOfRecip);
 
     arrayOfRecip.forEach(function (item){
-        const recipTitle = $('<h4 class="recipe-title">').text(item.recipeName);
-        const recipUniqueTitle = $('<h6 class="recipe-unique">').text(item.sourceDisplayName);
+        const $recipeName = item.recipeName;
+        const $recipeUnique = item.sourceDisplayName;
+        const $imageUrl = item.imageUrlsBySize;
+        const $itemId = item.id
+        const $totalSeconds = item.totalTimeInSeconds;
 
-        const imageUrl = item.imageUrlsBySize['90'].split('=')[0];
+        const recipTitle = $('<h4 class="recipe-title">').text($recipeName);
+        const recipUniqueTitle = $('<h6 class="recipe-unique">').text($recipeUnique);
+
+        const imageUrl = $imageUrl['90'].split('=')[0];
         const recipImage = $('<img class="recipe-img">').attr('src', imageUrl);
-        const recipAnchor = $(`<a href="https://www.yummly.com/recipe/${item.id}" target="_blank"></a>`).append(recipImage);
+        const recipAnchor = $(`<a href="https://www.yummly.com/recipe/${$itemId}" target="_blank"></a>`).append(recipImage);
         
-        const ingredientsTitle = $(`<a href="https://www.yummly.com/recipe/${item.id}" class="ingredients-title" target="_blank">`).text('Ingredients');
+        const ingredientsTitle = $(`<a href="https://www.yummly.com/recipe/${$itemId}" class="ingredients-title" target="_blank">`).text('Ingredients');
 
         // const ingredients = $('<ul class="ingredients-all">')
         // const ingredient = item.ingredients.forEach(function(ingredient) {
@@ -102,16 +116,8 @@ app.showResult = function(ajaxResult) {
         //     ingredients.append(eachLi);
         // })
 
-        const duration = (item.totalTimeInSeconds / 60);
+        const duration = ($totalSeconds/ 60);
         const durationInMin = $('<h6 class="duration-each">').text(`Time: ${duration} minutes`);
-        
-
-
-        // $('.ingredients-title').on('click', function() {
-        //     const indexOf = $('.ingredients-title').index(this);
-        //     const ingredientsAll = arrayOfRecip[indexOf].ingredients;
-        //     console.log(ingredientsAll);
-        // })
 
         const eachRecip = $(`<div>`).addClass('recipe-item').append(recipTitle, recipUniqueTitle, recipAnchor, durationInMin, ingredientsTitle);
 
@@ -136,9 +142,6 @@ app.dietsToggle = function(dietSelected) {
                 $('#recipes').hide()
             }
         }
-        
-
-        app.getRecip(searchedAll, allergySelected, dietSelected, maxTimeSelected)
     })
 }
 
@@ -148,28 +151,51 @@ app.durationToggle = function(maxTimeSelected) {
         if (this.checked) {
             $(this).next().toggleClass('active');
             maxTimeSelected = $(this).val()
+            console.log('hi');
             if (searchedAll.length === 0 && allergySelected.length === 0 && dietSelected === "none" && maxTimeSelected === "none") {
                 $('#recipes').hide()
             }
         }
 
-        app.getRecip(searchedAll, allergySelected, dietSelected, maxTimeSelected)
+    })
+}
+
+app.updateRecipe = function() {
+    $(document).on('click', '.searched-each', function() {
+        const $itemToRemove = this.innerHTML;
+        $(this).remove();
+
+        const filteredSearch = searchedAll.filter(function(item) {
+            return $itemToRemove !== item
+        });
+
+        searchedAll = filteredSearch;
+        $('#recipes').empty();
+
+        if (filteredSearch.length === 0) {
+            $('#recipes').empty(); 
+            $('.searched-ingredient').empty();
+            $('.searched-ingredient').text('Please search an ingredient')
+        } 
+        else {
+            app.getRecip(filteredSearch, allergySelected, dietSelected, maxTimeSelected);
+        }
+
+        app.scrollToTop();
     })
 }
 
 app.widthHandler = function () {
     $(window).resize(function() {
         if ($(window).width() < 350) {
-            console.log($(window).width());
-            app.smallWidth();
+            $('header').css('height', 'auto');  
         } 
+        else {
+            $('header').css('height', '96vh');
+        }
     });
 }
 
-app.smallWidth = function () {
-    $('header').css('height', 'auto');
-    $('footer').css('height', 'auto');
-}
 
 // init function
 app.init = function () {
@@ -178,9 +204,9 @@ app.init = function () {
     app.dietsToggle();
     app.durationToggle();
     app.widthHandler();
+    app.updateRecipe();
 }
 
-
-$(function () {
+$(document).ready(function() {
     app.init();
 });

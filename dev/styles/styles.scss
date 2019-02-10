@@ -11,10 +11,6 @@ img {
     max-width: 100%;
 }
 
-ul {
-    padding: 0;
-}
-
 li {
     list-style: none;
 }
@@ -54,6 +50,10 @@ input[type=submit] {
     color: #DF3539;
 }
 
+.height {
+    height: auto;
+}
+
 
 .logo {
     margin: 1rem 0;
@@ -75,6 +75,12 @@ header {
     @media (max-width: 350px) {
         height: auto;
     }
+}
+
+.default {
+    background-color: #EDE3D7;
+    border: 3px solid #82B2E0;
+    color: black;
 }
 
 .active {
@@ -112,14 +118,17 @@ label[for=search] {
     align-content: center;
     justify-content: start;
     flex-wrap: wrap;
+    padding: 30px;
+    margin: 0;
 }
 
-.searched-ingredient > * {
+.searched-each {
+    cursor: pointer;
     margin: 0 10px;
 }
 
 .recipe {
-    // background: url(../../assets/background-portrait.jpg);
+    background: grey;
     padding: 0;
     margin: 0;
 }
@@ -215,7 +224,7 @@ label[for=search] {
 }
 
 footer {
-    background-color: black;
+    background-color: #26120C;
     height: 4vh;
 }
 
