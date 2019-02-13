@@ -3,7 +3,7 @@ let searchedAll = [];
 const allergySelected = [];
 let dietSelected = 'none';
 let maxTimeSelected = 'none';
-const ingredientsTitle = 
+let storedResult;
 
 // On form submit, call the getMainInfo function
 app.mainSearchEvent = function() {
@@ -14,7 +14,7 @@ app.mainSearchEvent = function() {
         app.scrollToTopRecipe();
         app.headerHeightVH();
         app.widthHandlerSubmitted();
-        app.updateIngredients();
+        $('#search').blur();
         this.reset();
     })
 }
@@ -23,14 +23,14 @@ app.scrollToTopRecipe = function () {
     $('html,body').animate({
         scrollTop: $(".recipe").offset().top
     },
-        1000);
+        800);
 }
 
 app.scrollToTopHeader = function () {
     $('html,body').animate({
         scrollTop: $("header").offset().top
     },
-        1000);
+        800);
 }
 
 app.headerHeightVH = function() {
@@ -64,17 +64,15 @@ app.getMainInfo = function () {
 
 
     dietSelected = $('.diets input[type=radio]').filter($('input:checked')).val();
-    // console.log(dietSelected);
 
     maxTimeSelected = $('.duration input[type=radio]').filter($('input:checked')).val();
-    // console.log(maxTimeSelected);
 
     $('.searched-ingredient').css('display', 'flex');
     app.getRecip(searchedAll, allergySelected, dietSelected, maxTimeSelected);
+    app.updateIngredients();
 }
 
 app.searchedTitle = function(searchedAll) {
-    // console.log(searchedAll);
     $('#recipes').empty();
 
 }
@@ -98,10 +96,9 @@ app.getRecip = function (searchedAll, allergySelected, dietSelected, maxTimeSele
         const ajaxResult = res;
         app.showResult(ajaxResult);
         app.indIngredients(ajaxResult);
+        
     })
 }
-
-let eachRecip;
 
 // Display the data recieved and attach each recipes to the recipes section
 app.showResult = function(ajaxResult) {
@@ -208,6 +205,8 @@ app.widthHandlerSubmitted = function () {
         }
     });
 }
+
+
 
 let clicked = false;
 
