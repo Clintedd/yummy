@@ -124,7 +124,9 @@ app.showResult = function(ajaxResult) {
         const duration = ($totalSeconds/ 60);
         const durationInMin = $('<h6 class="duration-each">').text(`Time: ${duration} minutes`);
 
-        const eachRecip = $(`<div>`).addClass('recipe-item').append(recipTitle, recipUniqueTitle, recipAnchor, durationInMin, ingredientsTitle);
+        const divIngDur = $(`<div class="ing-dur">`).append(durationInMin, ingredientsTitle)
+
+        const eachRecip = $(`<div>`).addClass('recipe-item').append(recipTitle, recipUniqueTitle, recipAnchor, divIngDur);
 
 
         $('#recipes').append(eachRecip);
