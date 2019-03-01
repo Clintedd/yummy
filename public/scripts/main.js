@@ -50,7 +50,7 @@ app.updateIngredients = function () {
 
 // When the function is called, use the value of searched input, checked allergies, checked diets, checked time to get recipe info from Yummly API
 app.getMainInfo = function () {
-    var searchedIngredient = $('#form-search-main').children('input[type=search]').val();
+    var searchedIngredient = $('.search-wrapper').children('input[type=search]').val();
     if (searchedIngredient) {
         var oneSearch = $('input[name=ingredient]').val();
         // $('.searched-ingredient').append(`<li class="searched-each">${oneSearch}</li>`);
@@ -206,7 +206,7 @@ var clicked = false;
 
 app.indIngredients = function (ajaxResult) {
     var arrayOfRecip = ajaxResult.matches;
-    $(document).on('click', '.ingredients-title', function () {
+    $(document).off().on('click', '.ingredients-title', function () {
         console.log(clicked);
         if (clicked === false) {
             var indexOf = $('.ingredients-title').index(this);
@@ -221,7 +221,7 @@ app.indIngredients = function (ajaxResult) {
             $(this.parentElement).append(ingredientsUL);
             clicked = true;
         } else if (clicked === true) {
-            $('.ingredients-ul').on('click', app.hideIngredients());
+            app.hideIngredients();
         }
     });
 };
