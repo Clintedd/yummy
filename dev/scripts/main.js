@@ -103,6 +103,7 @@ app.getRecip = function (searchedAll, allergySelected, dietSelected, maxTimeSele
 // Display the data recieved and attach each recipes to the recipes section
 app.showResult = function(ajaxResult) {
     const arrayOfRecip = ajaxResult.matches;
+    console.log(arrayOfRecip);
 
     arrayOfRecip.forEach(function (item){
         const $recipeName = item.recipeName;
@@ -144,13 +145,14 @@ app.dietsToggle = function(dietSelected) {
         $('.diets label').removeClass('active');    
         if (this.checked) {
             $(this).next().toggleClass('active');
-            dietSelected = $(this).val()
+            dietSelected = $(this).val();
         }
     })
 }
 
 app.durationToggle = function(maxTimeSelected) {
     $('.duration input[type=radio]').change(function () {
+        console.log('hi');
         $('.duration label').removeClass('active');    
         if (this.checked) {
             $(this).next().toggleClass('active');
@@ -242,6 +244,24 @@ app.hideIngredients = function() {
     clicked = false;
 }
 
+app.imageSwap = function() {
+    $(document).on('mouseenter', 'label', function() {  
+        const typeClass = $(this).parent().prop('className');
+
+        if (typeClass === 'allergies') {
+            $('.hover-image--allergies').css('background-image', `url(/assets/${this.id}.png)`);
+        } else if (typeClass === 'diets') {
+            $('.hover-image--diets').css('background-image', `url(/assets/${this.id}.png)`);
+        } else if (typeClass === 'duration') {
+            $('.hover-image--duration').css('background-image', `url(/assets/${this.id}.png)`);
+        }
+    })
+
+    // $(document).on('mouseleave', 'label', function() {
+
+    // })
+}
+
 
 // init function
 app.init = function () {
@@ -251,6 +271,7 @@ app.init = function () {
     app.durationToggle();
     app.widthHandler();
     app.updateRecipe();
+    app.imageSwap();
 }
 
 $(document).ready(function() {
