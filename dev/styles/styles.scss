@@ -71,7 +71,7 @@ li {
 
 input[type=checkbox],
 input[type=radio] {
-    // display: none;
+    display: none;
 }
 
 .search-wrapper {
@@ -83,26 +83,27 @@ input[type=search] {
     font-family: 'frunchy';
     text-transform: capitalize;
     width: 1000px;
-    height: 50px;
-    font-size: 2em;
+    // height: 50px;
+    font-size: 3em;
     // background-color: #FEC2AB;
     // border: 5px solid #BF4558;
-    border-radius: 5px;
-    padding: 5px;
+    @include strawbShape();
     margin:  auto;
     display: block;
+}
+
+input[type=search]::placeholder {
+  color: #EFA253;
+  text-shadow: 2px 2px 0px  #fff, -2px -2px 0px  #fff, 2px -2px 0px  #fff, -2px 2px 0px  #fff;
 }
 
 input[type=submit] {
     font-size: 3rem;
     display: block;
+    // height: 50px;
     margin: 20px auto;
-    border-radius: 5px;
-    padding: 20px 50px;
-    color: white;
+    @include strawbShape();    
     font-family: 'frunchy';
-    background-color: #A6B1E1;
-    text-shadow: black 1px 0 10px;
     
 }
 
@@ -113,7 +114,7 @@ input[type=submit] {
 
 header {
     height: 96vh;
-    background-image: url(/assets/background6.jpg);
+    background-image: url(../../assets/background6.jpg);
     background-size: cover;
     background-position: center;
     box-shadow: inset 0 0 0 1000px rgba(0,0,0,.5);
@@ -133,7 +134,7 @@ header {
 }
 
 label {
-    font-size: 1.2rem;
+    font-size: 1rem;
     padding: 0.3em 0.5em;
     margin: 0.2em ;
     border: 3px solid transparent;
@@ -181,62 +182,32 @@ form {
     display: flex;
     flex-wrap: wrap;
     flex-flow: column;
-    width: 50%;
+    width: 90%;
     color: white;
     margin: 30px auto;
     padding: 10px 20px;
+    background-color: rgba(210, 233, 227, 0.3);
+    border:2px dashed #F7EEEE;
 
     @media (max-width: 900px) {
         width: 100%;
     }
 }
 
-.img-wrapper {
-    display: flex;
-    background-color: rgba(210, 233, 227, 0.2);
-    border:2px dashed #F7EEEE;
-}
-
-.hover-image {
-    width: 50%;
-    background: rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    & > * {
-        background-size: cover;
-        width: 200px;
-        height: 200px;
-    }
-
-
-    &--allergies {
-        // background-size: cover;
-        // width: 200px;
-        // height: 200px;
-    }
-
-    &--diets {
-        // background-size: cover;
-        // width: 200px;
-        // height: 200px;
-    }
-
-    &--time {
-
-    }
-}
-
 
 .searched-ingredient {
-    text-transform: uppercase;
+    text-transform: capitalize;
     display: none;
     align-content: center;
     justify-content: start;
     flex-wrap: wrap;
-    padding: 30px;
+    font-size: 3rem;
+    font-family: 'frunchy';
     margin: 0;
+    
+    // @include custardShape();
+    @include strawbShape();
+
 }
 
 .searched-each {
@@ -250,6 +221,11 @@ form {
     background-position: center;
     padding: 0;
     margin: 0;
+}
+
+.recipe-wrapper {
+    display: none;
+    padding: 40px;
 }
 
 // .recipe::after {

@@ -16,6 +16,7 @@ app.mainSearchEvent = function() {
         app.widthHandlerSubmitted();
         $('#search').blur();
         this.reset();
+        $('label').removeClass('active');
     })
 }
 
@@ -41,17 +42,18 @@ app.updateIngredients = function() {
     if (searchedAll.length > 0) {
         $('.searched-ingredient').text('Searched Ingredients:');
         for (var i = 0; i < searchedAll.length; i++) {
-            $('.searched-ingredient').append(`<li class="searched-each">${searchedAll[i]}</li>`);
+            $('.searched-ingredient').append(`<span class="searched-each">${searchedAll[i]}</span>`);
         }
     } 
 }
 
 // When the function is called, use the value of searched input, checked allergies, checked diets, checked time to get recipe info from Yummly API
 app.getMainInfo = function () {
-    const searchedIngredient = $('.search-wrapper').children('input[type=search]').val();
+    const searchedIngredient = $('input[type=search]').val();
     if (searchedIngredient) {
+        console.log('hiiii');
         const oneSearch = $('input[name=ingredient]').val();
-        // $('.searched-ingredient').append(`<li class="searched-each">${oneSearch}</li>`);
+        $('.searched-ingredient').append(`<span class="searched-each">${oneSearch}</span>`);
         searchedAll.push(oneSearch);
     }
 
@@ -68,6 +70,7 @@ app.getMainInfo = function () {
     maxTimeSelected = $('.duration input[type=radio]').filter($('input:checked')).val();
 
     $('.searched-ingredient').css('display', 'flex');
+    $('.recipe-wrapper').css('display', 'block');
     app.getRecip(searchedAll, allergySelected, dietSelected, maxTimeSelected);
     app.updateIngredients();
 }
@@ -103,7 +106,6 @@ app.getRecip = function (searchedAll, allergySelected, dietSelected, maxTimeSele
 // Display the data recieved and attach each recipes to the recipes section
 app.showResult = function(ajaxResult) {
     const arrayOfRecip = ajaxResult.matches;
-    console.log(arrayOfRecip);
 
     arrayOfRecip.forEach(function (item){
         const $recipeName = item.recipeName;
@@ -145,14 +147,13 @@ app.dietsToggle = function(dietSelected) {
         $('.diets label').removeClass('active');    
         if (this.checked) {
             $(this).next().toggleClass('active');
-            dietSelected = $(this).val();
+            dietSelected = $(this).val()
         }
     })
 }
 
 app.durationToggle = function(maxTimeSelected) {
     $('.duration input[type=radio]').change(function () {
-        console.log('hi');
         $('.duration label').removeClass('active');    
         if (this.checked) {
             $(this).next().toggleClass('active');
@@ -216,7 +217,7 @@ let clicked = false;
 
 app.indIngredients = function(ajaxResult) {
     const arrayOfRecip = ajaxResult.matches;
-    $(document).off().on('click', '.ingredients-title', function() {
+    $(document).on('click', '.ingredients-title', function() {
         console.log(clicked);
         if (clicked === false) {
             const indexOf = $('.ingredients-title').index(this);
@@ -232,8 +233,7 @@ app.indIngredients = function(ajaxResult) {
             clicked = true;
         } 
         else if (clicked === true) {
-            app.hideIngredients();
-        
+            $('.ingredients-ul').on('click', app.hideIngredients());
         }
 
     })
@@ -242,24 +242,6 @@ app.indIngredients = function(ajaxResult) {
 app.hideIngredients = function() {
     $('.ingredients-ul').css('display', 'none');
     clicked = false;
-}
-
-app.imageSwap = function() {
-    $(document).on('mouseenter', 'label', function() {  
-        const typeClass = $(this).parent().prop('className');
-
-        if (typeClass === 'allergies') {
-            $('.hover-image--allergies').css('background-image', `url(/assets/${this.id}.png)`);
-        } else if (typeClass === 'diets') {
-            $('.hover-image--diets').css('background-image', `url(/assets/${this.id}.png)`);
-        } else if (typeClass === 'duration') {
-            $('.hover-image--duration').css('background-image', `url(/assets/${this.id}.png)`);
-        }
-    })
-
-    // $(document).on('mouseleave', 'label', function() {
-
-    // })
 }
 
 
@@ -271,7 +253,6 @@ app.init = function () {
     app.durationToggle();
     app.widthHandler();
     app.updateRecipe();
-    app.imageSwap();
 }
 
 $(document).ready(function() {
