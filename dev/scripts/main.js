@@ -125,7 +125,7 @@ app.showResult = function(ajaxResult) {
         const ingredientsTitle = $(`<p class="ingredients-title" target="_blank">`).text('Ingredients');
 
         const duration = ($totalSeconds/ 60);
-        const durationInMin = $('<h6 class="duration-each">').text(`Time: ${duration} minutes`);
+        const durationInMin = $('<h6 class="duration-each">').text(`Time: ${duration} Min`);
 
         const divIngDur = $(`<div class="ing-dur">`).append(durationInMin, ingredientsTitle)
 

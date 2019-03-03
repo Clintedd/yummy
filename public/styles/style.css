@@ -286,7 +286,7 @@ li {
   list-style: none; }
 
 .wrapper {
-  width: 80%;
+  width: 90%;
   margin: 0 auto; }
   @media (max-width: 900px) {
     .wrapper {
@@ -340,12 +340,12 @@ input[type=search] {
   font-family: 'frunchy';
   text-transform: capitalize;
   width: 1000px;
-  font-size: 3em;
-  border-radius: 5px;
-  border: 5px solid #FFE2E9;
-  background-color: #FFE8D5;
+  font-size: 3rem;
   padding: 10px 25px;
-  color: #fca4a4;
+  border-radius: 5px;
+  border: 5px solid #EFA253;
+  background-color: #fffda0;
+  color: #EFA253;
   text-shadow: 2px 2px 0px  #fff, -2px -2px 0px  #fff, 2px -2px 0px  #fff, -2px 2px 0px  #fff;
   margin: auto;
   display: block; }
@@ -370,11 +370,11 @@ input[type=submit] {
   font-size: 3rem;
   display: block;
   margin: 20px auto;
-  border-radius: 5px;
-  border: 5px solid #FFE2E9;
-  background-color: #FFE8D5;
   padding: 10px 25px;
-  color: #fca4a4;
+  border-radius: 5px;
+  border: 5px solid #EFA253;
+  background-color: #fffda0;
+  color: #EFA253;
   text-shadow: 2px 2px 0px  #fff, -2px -2px 0px  #fff, 2px -2px 0px  #fff, -2px 2px 0px  #fff;
   font-family: 'frunchy'; }
 
@@ -475,10 +475,10 @@ form {
   font-size: 3rem;
   font-family: 'frunchy';
   margin: 0;
+  padding: 10px 25px;
   border-radius: 5px;
   border: 5px solid #FFE2E9;
   background-color: #FFE8D5;
-  padding: 10px 25px;
   color: #fca4a4;
   text-shadow: 2px 2px 0px  #fff, -2px -2px 0px  #fff, 2px -2px 0px  #fff, -2px 2px 0px  #fff; }
 
@@ -505,7 +505,7 @@ form {
       flex-wrap: wrap; }
 
 .recipe-item {
-  background-color: #F3F3F3;
+  background-color: #F7F9FB;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
@@ -518,36 +518,48 @@ form {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   position: relative;
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
           box-shadow: 0 0 5px rgba(0, 0, 0, 0.6); }
-  @media (max-width: 1000px) {
+  @media (max-width: 1350px) {
     .recipe-item {
-      width: 40%; } }
+      width: 30%; } }
+  @media (max-width: 750px) {
+    .recipe-item {
+      width: 50%; } }
   @media (max-width: 600px) {
     .recipe-item {
       width: 90%; } }
 
 .recipe-title {
   text-align: center;
-  height: 80px;
-  margin: 20px 0;
+  margin: 10px 0;
+  font-size: 2rem;
   line-height: 1;
-  color: #548749; }
-  @media (max-width: 1000px) {
-    .recipe-title {
-      height: 40px; } }
+  height: 60px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 5px;
+  border: 5px solid #FFE2E9;
+  background-color: #FFE8D5;
+  color: #fca4a4;
+  text-shadow: 2px 2px 0px  #fff, -2px -2px 0px  #fff, 2px -2px 0px  #fff, -2px 2px 0px  #fff; }
 
 .recipe-unique {
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(222, 207, 152, 0.8)), to(rgba(222, 207, 152, 0.9)));
   background: linear-gradient(to bottom, rgba(222, 207, 152, 0.8), rgba(222, 207, 152, 0.9));
   padding: 10px;
+  font-size: 2rem;
   position: absolute;
   text-align: center;
-  top: 280px;
+  bottom: 70px;
   color: #941B35; }
 
 .recipe-img {
@@ -555,8 +567,10 @@ form {
      object-fit: cover;
   width: 250px;
   height: 250px;
+  max-height: 250px;
   z-index: 5;
-  margin: 10px auto; }
+  margin: 30px auto;
+  display: block; }
 
 .recipe-img:hover {
   -webkit-box-shadow: 0 0 1rem rgba(0, 0, 0, 0.6);
@@ -571,19 +585,23 @@ form {
           justify-content: space-between; }
 
 .duration-each {
-  font-size: 1em;
+  font-size: 1.2rem;
   margin: 10px;
-  color: black; }
+  padding: 10px;
+  color: black;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-weight: 400; }
 
 .ingredients-title {
-  background-color: #82B2E0;
-  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
   border-radius: 5px;
-  margin: 0;
-  padding: 0.4rem;
+  font-size: 1.2rem;
+  margin: 10px;
+  padding: 10px;
+  font-weight: 400;
   text-decoration: none;
-  color: #EDE3D7; }
+  border: 1px solid black;
+  color: black; }
 
 .ingredients-title:hover {
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
