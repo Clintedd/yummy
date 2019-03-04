@@ -5,12 +5,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Kitchenia</title>
-	<link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet"> 
+	<link href="https://fonts.googleapis.com/css?family=Merriweather|The+Girl+Next+Door" rel="stylesheet"> 
 	<link rel="stylesheet" href="public/styles/style.css">
 </head>
 <body>
 	<header>
-		<div class="wrapper">
+		<div class="header-wrapper">
 			<div class="logo">
 				<!-- <img src="assets/title.png" alt=""> -->
 				<h1>Kitchenia</h1>
@@ -19,8 +19,7 @@
 				<form action="" id="form-search-main">
 					<div class="search-wrapper">
 						<label for="search"></label>
-						<input id="search" type="search" placeholder="Search Ingredients" name="ingredient" onfocus="this.placeholder = ''" onblur="this.placeholder = `Search Ingredients`" required>
-						<input id="submit" type="submit" value="Let's Get Cooking!" name="submitForMain" required="">
+						<input id="search" type="search" placeholder="Search recipe by ingredients" name="ingredient" onfocus="this.placeholder = ''" onblur="this.placeholder = `Search recipe by ingredients`" required>
 					</div>
 					<div class="flex-wrapper">
 						<div class="flex-allergies flex-all">
@@ -28,8 +27,6 @@
 								<h2>Allergy</h2>
 							</div>
 							<div class="allergies">
-								<label for="tree">Tree Nut Free</label>
-								<input id="tree" type="checkbox" name="allergy" value="395^Tree Nut-Free">
 								<label for="dairy">Dairy Free</label>
 								<input id="dairy" type="checkbox" name="allergy" value="396^Dairy-Free">
 								<label for="egg">Egg Free</label>
@@ -44,8 +41,6 @@
 								<input id="sesame" type="checkbox" name="allergy" value="399^Sesame-Free">
 								<label for="soy">Soy Free</label>
 								<input id="soy" type="checkbox" name="allergy" value="400^Soy-Free">
-								<label for="sulfite">Sulfite Free</label>
-								<input id="sulfite" type="checkbox" name="allergy" value="401^Sulfite-Free">
 								<label for="wheat">Wheat Free</label>
 								<input id="wheat" type="checkbox" name="allergy" value="392^Wheat-Free">
 							</div>
@@ -65,10 +60,6 @@
 								<label for="pescetarian">Pescetarian</label>
 								<input id="vegan" type="radio" name="diet" value="386^Vegan">
 								<label for="vegan">Vegan</label>
-								<input id="fodmap" type="radio" name="diet" value="408^Low FODMAP">
-								<label for="fodmap">Low FODMAP</label>
-								<input id="lacto-ovo" type="radio" name="diet" value="387^Lacto-ovo vegetarian">
-								<label for="lacto-ovo">Lacto ovo vegetarian</label>
 								<input id="paleo" type="radio" name="diet" value="403^Paleo">
 								<label for="paleo">Paleo</label>
 								<input id="none" type="radio" name="diet" value="none">
@@ -96,10 +87,7 @@
 							</div>
 						</div>
 					</div>
-					
-					
-					
-					
+					<input id="submit" type="submit" value="Let's Get Cooking!" name="submitForMain" required="">
 				</form>
 			</div>
 		</div>
@@ -124,7 +112,7 @@
 		</div>
 	</div> -->
 	<div class="recipe">	
-		<div class="recipe-wrapper wrapper">
+		<div class="recipe-wrapper">
 			<h3 id="searched" class="searched-ingredient">
 				Searched Ingredients:
 			</h3>

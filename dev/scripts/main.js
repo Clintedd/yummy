@@ -11,18 +11,18 @@ app.mainSearchEvent = function() {
         e.preventDefault();
         app.getMainInfo();
         app.searchedTitle(searchedAll);
-        app.scrollToTopRecipe();
         app.headerHeightVH();
         app.widthHandlerSubmitted();
         $('#search').blur();
         this.reset();
         $('label').removeClass('active');
+        app.scrollToTopRecipe();
     })
 }
 
 app.scrollToTopRecipe = function () {
     $('html,body').animate({
-        scrollTop: $(".recipe").offset().top
+        scrollTop: $(".recipe-wrapper").offset().top 
     },
         800);
 }
@@ -51,7 +51,6 @@ app.updateIngredients = function() {
 app.getMainInfo = function () {
     const searchedIngredient = $('input[type=search]').val();
     if (searchedIngredient) {
-        console.log('hiiii');
         const oneSearch = $('input[name=ingredient]').val();
         $('.searched-ingredient').append(`<span class="searched-each">${oneSearch}</span>`);
         searchedAll.push(oneSearch);

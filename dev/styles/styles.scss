@@ -1,6 +1,10 @@
 @import 'setup';
 @import 'utils';
-@font-face { font-family: frunchy; src: url('/assets/Frunch.ttf'); } 
+@font-face{
+    font-family: 'frunch';
+    src: url(/assets/Frunch.ttf);
+    // src: url(http://www.clintdevs.live/kitchenia/assets/Frunch.ttf) format(truetype);
+}
 
 // Global Settings
 
@@ -8,6 +12,14 @@ html {
     // font-size: calc(1em + 1vw);
     font-family: 'Merriweather', sans-serif;
     font-size: 62.5%;
+
+    @media (max-width: 1000px) {
+        font-size: 50%;
+    }
+
+    @media (max-width: 700px) {
+        font-size: 40%;
+    }
 }
 
 img {
@@ -27,20 +39,34 @@ li {
     }
 }
 
+.header-wrapper {
+    width: 60%;
+    margin: 0 auto;
+
+    @media (max-width: 1600px) {
+        width: 80%;
+    }
+
+    @media (max-width: 750px) {
+        width: 90%;
+    }
+
+}
+
 .logo {
     margin: 3rem 0;
     display: flex;
 
     h1 {
-        font-family: 'frunchy';
+        font-family: 'frunch', cursive;
         font-size: 5rem;
         text-align: center;
         color: white;
         margin: 0 auto;
         padding: 20px 60px;
         text-shadow: white 1px 0 10px;
-        border-radius: 10px;
         border: 10px solid white;
+        border-radius: 15px;
         background-color: rgba(0,0,0, .8);
         box-shadow: inset 0 0 100px #fff,
         inset 20px 0 80px #f0f,
@@ -51,6 +77,12 @@ li {
         -10px 0 80px #f0f,
         10px 0 80px #0ff;
         animation: blink 5s infinite;
+
+        @media (max-width: 1350px) {
+            padding: 10px 30px;
+            font-size: 4rem;
+            border: 1px solid white;
+        }
     }
 }
 
@@ -59,7 +91,7 @@ li {
     h2 {
         position: absolute;
         left: 50%;
-        font-family: 'frunchy';
+        font-family: 'frunch', cursive;
         font-size: 3rem;
         color: #fff;
         text-shadow: #106466 1px 0 10px;
@@ -76,18 +108,18 @@ input[type=radio] {
 
 .search-wrapper {
     display: flex;
-    // justify-content: stretch;
+    justify-content: stretch;
 }
 
 input[type=search] {
-    font-family: 'frunchy';
+    font-family: 'frunch', cursive;
     text-transform: capitalize;
-    width: 1000px;
+    width: 50%;
     // height: 50px;
-    font-size: 3rem;
+    font-size: 2rem;
     // background-color: #FEC2AB;
     // border: 5px solid #BF4558;
-    padding: 10px 25px;
+    padding: 10px 20px;
     @include custardShape();
     margin:  auto;
     display: block;
@@ -99,13 +131,13 @@ input[type=search]::placeholder {
 }
 
 input[type=submit] {
-    font-size: 3rem;
+    font-size: 2rem;
     display: block;
-    // height: 50px;
+    // width: 20%;
     margin: 20px auto;
-    padding: 10px 25px;
+    padding: 10px 20px;
     @include custardShape();    
-    font-family: 'frunchy';
+    font-family: 'frunch', cursive;
     
 }
 
@@ -136,7 +168,7 @@ header {
 }
 
 label {
-    font-size: 1rem;
+    font-size: 1.3rem;
     padding: 0.3em 0.5em;
     margin: 0.2em ;
     border: 3px solid transparent;
@@ -165,8 +197,13 @@ form {
 .flex-wrapper {
     display: flex;
     padding-top: 50px;
+    flex-flow: column wrap;
     justify-content: space-around;
     align-items: stretch;
+
+    @media (max-width: 1000px) {
+        padding-top: 20px;
+    }
 }
 
 .flex-allergies {
@@ -174,7 +211,7 @@ form {
 }
 
 .flex-all {
-    width: 30%;
+    width: 100%;
     position: relative;
 }
 
@@ -182,16 +219,20 @@ form {
 
 .allergies, .diets, .duration {
     display: flex;
-    flex-wrap: wrap;
-    flex-flow: column;
-    width: 90%;
+    flex-flow: row wrap;
+    // justify-content: center;
+    width: 80%;
     color: white;
     margin: 30px auto;
-    padding: 10px 20px;
+    padding: 10px 15px;
     background-color: rgba(210, 233, 227, 0.3);
     border:2px dashed #F7EEEE;
 
-    @media (max-width: 900px) {
+    @media (max-width: 1600px) {
+        width: 90%;
+    }
+
+    @media (max-width: 750px) {
         width: 100%;
     }
 }
@@ -204,9 +245,9 @@ form {
     justify-content: start;
     flex-wrap: wrap;
     font-size: 3rem;
-    font-family: 'frunchy';
+    font-family: 'frunch', cursive;
     margin: 0;
-    padding: 10px 25px;
+    padding: 5px 10px;
     // @include custardShape();
     @include strawbShape();
 
@@ -215,6 +256,8 @@ form {
 .searched-each {
     cursor: pointer;
     margin: 0 10px;
+    display: flex;
+    align-items: flex-end;
 }
 
 .recipe {
@@ -226,8 +269,10 @@ form {
 }
 
 .recipe-wrapper {
+    width: 90%;
+    margin: 0 auto;
     display: none;
-    padding: 40px;
+    padding: 40px 0;
 }
 
 // .recipe::after {
@@ -248,21 +293,21 @@ form {
     background-color: #F7F9FB;
     flex-grow: 1;
     width: 20%;
-    margin: 15px;
+    margin: 30px;
     display: flex;
     flex-direction: column;
     position: relative;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
 
     @media (max-width: 1350px) {
-        width: 30%;
+        width: 25%;
     }
 
     @media (max-width: 750px) {
-        width: 50%;
+        // width: 40%;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 300px) {
         width: 90%;
     }
 }
@@ -320,14 +365,12 @@ form {
     padding: 10px;
     color: black;
     border: 1px solid black;
-    border-radius: 5px;
     font-weight: 400;
 }
 
 .ingredients-title {
     // text-align: unset;
     // box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-    border-radius: 5px;
     font-size: 1.2rem;
     margin: 10px;
     padding: 10px;
@@ -349,7 +392,7 @@ form {
 }
 
 .ingredients-each {
-    font-size: 0.5em;
+    font-size: 0.5rem;
 }
 
 
@@ -401,7 +444,7 @@ form {
 
 .menu > * {
     font-family: "Helvetica Narrow","Arial Narrow",Tahoma,Arial,Helvetica,sans-serif;
-    font-size: 3em;
+    font-size: 3rem;
     text-shadow: 15px 15px 30px rgba(0, 0, 0, 0.6);
     z-index: 15;
 }
@@ -430,7 +473,7 @@ footer .wrapper {
 }
 
 footer p {
-    font-size: 0.5em;
+    font-size: 1.6rem;
     margin: 0;
     color: white;
 }
