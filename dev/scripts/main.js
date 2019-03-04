@@ -3,19 +3,20 @@ let searchedAll = [];
 const allergySelected = [];
 let dietSelected = 'none';
 let maxTimeSelected = 'none';
+let ajaxResult;
 let storedResult;
 
 // On form submit, call the getMainInfo function
 app.mainSearchEvent = function() {
     $('#form-search-main').on('submit', function(e) {
         e.preventDefault();
+        $('label').removeClass('active');
         app.getMainInfo();
         app.searchedTitle(searchedAll);
         app.headerHeightVH();
         app.widthHandlerSubmitted();
         $('#search').blur();
         this.reset();
-        $('label').removeClass('active');
         app.scrollToTopRecipe();
     })
 }
@@ -95,9 +96,8 @@ app.getRecip = function (searchedAll, allergySelected, dietSelected, maxTimeSele
         }
     }).then((res) => {
         console.log(res);
-        const ajaxResult = res;
+        ajaxResult = res;
         app.showResult(ajaxResult);
-        app.indIngredients(ajaxResult);
         
     })
 }
@@ -157,7 +157,6 @@ app.durationToggle = function(maxTimeSelected) {
         if (this.checked) {
             $(this).next().toggleClass('active');
             maxTimeSelected = $(this).val()
-            console.log('hi');
         }
 
     })
@@ -214,27 +213,35 @@ app.widthHandlerSubmitted = function () {
 
 let clicked = false;
 
-app.indIngredients = function(ajaxResult) {
-    const arrayOfRecip = ajaxResult.matches;
+app.indIngredients = function() {
     $(document).on('click', '.ingredients-title', function() {
-        console.log(clicked);
+        const arrayOfRecip = ajaxResult.matches;
+        console.log(ajaxResult);
+        console.log('clicked');
         if (clicked === false) {
             const indexOf = $('.ingredients-title').index(this);
+            console.log(indexOf);
             const ingredientsAll = arrayOfRecip[indexOf].ingredients;
             const ingredientsUL = $(`<ul class=ingredients-ul>`)
-
+            const ingredientsExp = $('<h4 class="ingredients-exp">').text('Ingredients:');
+            ingredientsUL.append(ingredientsExp);
+            
             for (var i = 0; i < ingredientsAll.length; i++) {
                 const ingredientsInd = $(`<li class="ingredients-each">`).text(`${ingredientsAll[i]}`);
                 ingredientsUL.append(ingredientsInd);
             }
-
-            $(this.parentElement).append(ingredientsUL);
+            $(this.parentElement.parentElement).append(ingredientsUL);
+            // ingredientsUL.text('Ingredients in this recipe:')
             clicked = true;
         } 
         else if (clicked === true) {
             $('.ingredients-ul').on('click', app.hideIngredients());
         }
 
+    })
+    $(document).on('click', '.ingredients-ul', function() {
+        app.hideIngredients();
+        clicked = false;
     })
 }
 
@@ -252,6 +259,7 @@ app.init = function () {
     app.durationToggle();
     app.widthHandler();
     app.updateRecipe();
+    app.indIngredients();
 }
 
 $(document).ready(function() {
